@@ -35,9 +35,9 @@ Route::group(['middleware'=>['guest']],function (){
     Route::get('login',[LoginController::class,'index'])->name('login');
     Route::post('login',[LoginController::class,'login']);
     Route::get('register',[RegisterController::class,'index'])->name('register');
-    Route::post('register',[RegisterController::class,'store']); 
+    Route::post('register',[RegisterController::class,'store']);
 
-   
+
 
     Route::get('forgot-password',[ForgotPasswordController::class,'index'])->name('forgot-password');
     Route::post('forgot-password',[ForgotPasswordController::class,'reset']);
@@ -61,24 +61,9 @@ Route::group(['middleware'=>['auth']],function (){
     Route::post('products/{product}',[ProductController::class,'update']);
     Route::delete('products',[ProductController::class,'destroy']);
 
-    Route::get('suppliers',[SupplierController::class,'index'])->name('suppliers');
-    Route::get('add-supplier',[SupplierController::class,'create'])->name('add-supplier');
-    Route::post('add-supplier',[SupplierController::class,'store']);
-    Route::get('suppliers/{supplier}',[SupplierController::class,'show'])->name('edit-supplier');
-    Route::delete('suppliers',[SupplierController::class,'destroy']);
-    Route::put('suppliers/{supplier}}',[SupplierController::class,'update'])->name('edit-supplier');
 
-    Route::get('purchases',[PurchaseController::class,'index'])->name('purchases');
-    Route::get('add-purchase',[PurchaseController::class,'create'])->name('add-purchase');
-    Route::post('add-purchase',[PurchaseController::class,'store']);
-    Route::get('purchases/{purchase}',[PurchaseController::class,'show'])->name('edit-purchase');
-    Route::put('purchases/{purchase}',[PurchaseController::class,'update']);
-    Route::delete('purchases',[PurchaseController::class,'destroy']);
 
-    Route::get('sales',[SalesController::class,'index'])->name('sales');
-    Route::post('sales',[SalesController::class,'store']);
-    Route::put('sales',[SalesController::class,'update']);
-    Route::delete('sales',[SalesController::class,'destroy']);
+
 
     Route::get('permissions',[PermissionController::class,'index'])->name('permissions');
     Route::post('permissions',[PermissionController::class,'store']);

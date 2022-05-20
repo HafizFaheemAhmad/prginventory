@@ -24,11 +24,9 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
         $arrayOfPermissionNames = [
-          'view-sales', 'create-sales','destroy-sale','update-sales',
+
           'view-reports','view-category','create-category','destroy-category','update-category',
           'view-products','create-product','update-product','destroy-product',
-          'view-purchase','create-purchase','update-purchase','destroy-purchase',
-          'view-supplier','create-supplier','update-supplier','destroy-supplier',
           'view-users','create-user','update-user','destroy-user',
           'view-access-control',
           'view-role','update-role','destroy-role','create-role',
@@ -44,7 +42,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create roles and assign permissions
         $role = Role::create(['name' => 'sales-person'])
-         ->givePermissionTo(['view-sales', 'view-reports','create-sales']);
+        ->givePermissionTo(Permission::all());
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
     }

@@ -14,13 +14,9 @@ class Product extends Model
     use HasFactory,SoftDeletes,Notifiable;
 
     protected $fillable = [
-        'purchase_id','price',
-        'discount','description',
+
+        'description',
     ];
 
-   
 
-    public function purchase(){
-        return $this->belongsTo(Purchase::class);
-    }
 }
