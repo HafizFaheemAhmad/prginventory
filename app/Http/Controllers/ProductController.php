@@ -22,8 +22,8 @@ class ProductController extends Controller
     public function index()
     {
         $title = "products";
-        $products = Product::with('purchase')->get();
-    
+        $products = Product::with('category')->get();
+
         return view('products',compact(
             'title','products',
         ));
@@ -31,12 +31,13 @@ class ProductController extends Controller
 
     public function create(){
         $title= "Add Product";
-        $products = Purchase::get();
+        $products = Category::get();
+
         return view('add-product',compact(
             'title','products',
         ));
     }
-    
+
 
     /**
      * Display a listing of expired resources.
@@ -45,8 +46,8 @@ class ProductController extends Controller
      */
     public function expired(){
         $title = "expired Products";
-        $products = Purchase::whereDate('expiry_date', '=', Carbon::now())->get();
-        
+        $products = Category::whereDate('expiry_date', '=', Carbon::now())->get();
+
         return view('expired',compact(
             'title','products'
         ));
@@ -59,15 +60,15 @@ class ProductController extends Controller
      */
     public function outstock(){
         $title = "outstocked Products";
-        $products = Purchase::where('quantity', '<=', 0)->get();
-        $product = Purchase::where('quantity', '<=', 0)->first();
+        $products = Category::where('quantity', '<=', 0)->get();
+        $product = Category::where('quantity', '<=', 0)->first();
         // auth()->user()->notify(new StockAlert($product));
-        
+
         return view('outstock',compact(
             'title','products',
         ));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -87,8 +88,9 @@ class ProductController extends Controller
         if($request->discount >0){
            $price = $request->discount * $request->price;
         }
+
         Product::create([
-            'purchase_id'=>$request->product,
+            'product'=>$request->category,
             'price'=>$price,
             'discount'=>$request->discount,
             'description'=>$request->description,
@@ -111,7 +113,7 @@ class ProductController extends Controller
     {
         $title = "Edit Product";
         $product = Product::find($id);
-        $purchased_products = Purchase::get();
+        $purchased_products = Category::get();
         return view('edit-product',compact(
             'title','product','purchased_products'
         ));
@@ -132,7 +134,7 @@ class ProductController extends Controller
             'discount'=>'nullable',
             'description'=>'nullable|max:200',
         ]);
-        
+
         $price = $request->price;
         if($request->discount >0){
            $price = $request->discount * $request->price;

@@ -21,7 +21,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-	
+
 		<!-- Products -->
 		<div class="card">
 			<div class="card-body">
@@ -41,25 +41,25 @@
 						<tbody>
 
 							@foreach ($products as $product)
-								@if($product->purchase()->exists())
+								@if($product->category()->exists())
 								<tr>
 									<td>
 										<h2 class="table-avatar">
-											@if(!empty($product->purchase->image))
+											{{-- @if(!empty($product->category->image))
 											<span class="avatar avatar-sm mr-2">
 												<img class="avatar-img" src="{{asset('storage/purchases/'.$product->purchase->image)}}" alt="product image">
 											</span>
-											@endif
-											{{$product->purchase->name}}
+											@endif --}}
+											{{$product->category>name}}
 										</h2>
 									</td>
-									<td>{{$product->purchase->category->name}}</td>
+									<td>{{$product->category->name}}</td>
 									<td>{{AppSettings::get('app_currency', '$')}} {{$product->price}}
 									</td>
-									<td>{{$product->purchase->quantity}}</td>
+									<td>{{$product->category->quantity}}</td>
 									<td>{{$product->discount}}%</td>
 									<td>
-									{{date_format(date_create($product->purchase->expiry_date),"d M, Y")}}</span>										
+									{{date_format(date_create($product->category->expiry_date),"d M, Y")}}</span>
 									</td>
 									<td>
 										<div class="actions">
@@ -74,14 +74,14 @@
 								</tr>
 								@endif
 							@endforeach
-							
+
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 		<!-- /Products -->
-		
+
 	</div>
 </div>
 
