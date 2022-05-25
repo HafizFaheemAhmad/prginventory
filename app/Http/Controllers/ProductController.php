@@ -22,19 +22,17 @@ class ProductController extends Controller
     public function index()
     {
         $title = "products";
-        $products = Product::with('category')->get();
-
-        return view('products',compact(
-            'title','products',
-        ));
+        $products = Product::paginate(25);
+        return view('products',compact('products'));
     }
 
     public function create(){
         $title= "Add Product";
-        $products = Category::get();
+        $categories = Category::get();
+        $products = Product::get();
 
         return view('add-product',compact(
-            'title','products',
+            'title','categories','products',
         ));
     }
 
@@ -79,22 +77,23 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'product'=>'required|max:200',
-            'price'=>'required|min:1',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:200',
-        ]);
-        $price = $request->price;
-        if($request->discount >0){
-           $price = $request->discount * $request->price;
-        }
+            'Cubical_Number'=>'required',
+            'Lcd_Code'=>'required',
+            'Headset_Code'=>'required',
+            'CPU_Detail'=>'required',
+            'category'=>'required',
 
-        Product::create([
-            'product'=>$request->category,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'description'=>$request->description,
         ]);
+
+        $res=Product::create([
+            'Cubical_Number'=>$request->Cubical_Number,
+            'Lcd_Code'=>$request->Lcd_Code,
+            'Headset_Code'=>$request->Headset_Code,
+            'CPU_Detail'=>$request->CPU_Detail,
+            'category_id'=>$request->category,
+
+        ]);
+
         $notification=array(
             'message'=>"Product has been added",
             'alert-type'=>'success',
@@ -113,9 +112,10 @@ class ProductController extends Controller
     {
         $title = "Edit Product";
         $product = Product::find($id);
-        $purchased_products = Category::get();
+        $categories = Category::get();
+
         return view('edit-product',compact(
-            'title','product','purchased_products'
+            'title','product','categories'
         ));
     }
 
@@ -128,22 +128,23 @@ class ProductController extends Controller
      */
     public function update(Request $request,Product $product)
     {
+
         $this->validate($request,[
-            'product'=>'required|max:200',
-            'price'=>'required',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:200',
+            'Cubical_Number'=>'required',
+            'Lcd_Code'=>'required',
+            'Headset_Code'=>'required',
+            'CPU_Detail'=>'required',
+            'category'=>'required',
+
         ]);
 
-        $price = $request->price;
-        if($request->discount >0){
-           $price = $request->discount * $request->price;
-        }
+
        $product->update([
-            'purchase_id'=>$request->product,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'description'=>$request->description,
+       'Cubical_Number'=>$request->Cubical_Number,
+            'Lcd_Code'=>$request->Lcd_Code,
+            'Headset_Code'=>$request->Headset_Code,
+            'CPU_Detail'=>$request->CPU_Detail,
+            'category_id'=>$request->category,
         ]);
         $notification=array(
             'message'=>"Product has been updated",
@@ -151,6 +152,19 @@ class ProductController extends Controller
         );
         return redirect()->route('products')->with($notification);
     }
+    // public function update(Request $request)
+    // {
+    //     $this->validate($request,['name'=>'required|max:100']);
+    //     $category = Category::find($request->id);
+    //     $category->update([
+    //         'name'=>$request->name,
+    //     ]);
+    //     $notification=array(
+    //         'message'=>"Category has been updated",
+    //         'alert-type'=>'success',
+    //     );
+    //     return back()->with($notification);
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -167,5 +181,13 @@ class ProductController extends Controller
             'alert-type'=>'success',
         );
         return back()->with($notification);
+    }
+
+    public function shows(Product $product)
+    {
+        return view('product-show', [
+            'product' => $product,
+            'products' => Product::where('id', $product->id)->paginate(25)
+        ]);
     }
 }

@@ -16,9 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('price');
-            $table->integer('discount');
-            $table->text('description')->nullable();
+            
+            $table->string('Cubical_Number');
+            $table->string('Lcd_Code');
+            $table->string('Headset_Code');
+            $table->text('CPU_Detail');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete("cascade");
             $table->softDeletes();
             $table->timestamps();

@@ -48,11 +48,15 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('logout',[LogoutController::class,'index'])->name('logout');
 
     Route::get('categories',[CategoryController::class,'index'])->name('categories');
+    Route::get('categoriesshow/{category}',[CategoryController::class,'shows'])->name('categories-show');
     Route::post('categories',[CategoryController::class,'store']);
     Route::put('categories',[CategoryController::class,'update']);
     Route::delete('categories',[CategoryController::class,'destroy']);
 
+
+
     Route::get('products',[ProductController::class,'index'])->name('products');
+    Route::get('productshow/{product}',[ProductController::class,'shows'])->name('product-show');
     Route::get('products/create',[ProductController::class,'create'])->name('add-product');
     Route::get('expired-products',[ProductController::class,'expired'])->name('expired');
     Route::get('products/{product}',[ProductController::class,'show'])->name('edit-product');
