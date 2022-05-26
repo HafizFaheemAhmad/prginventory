@@ -5,9 +5,9 @@
 
 @push('page-header')
 <div class="col-sm-12">
-	<h3 class="page-title">Welcome {{auth()->user()->name}}!</h3>
+	<h3 style="color:#007bff" class="page-title">Welcome To PRG Inventory Management System :<br> {{auth()->user()->name}}</h3>
 	<ul class="breadcrumb">
-		<li class="breadcrumb-item active">Dashboard</li>
+		<li style="color:#007bff" class="breadcrumb-item active">Dashboard</li>
 	</ul>
 </div>
 @endpush
@@ -28,8 +28,7 @@
 						</div>
 					</div>
 					<div class="dash-widget-info">
-
-						<h6 class="text-muted">Product Categories</h6>
+						<h6 class="text-muted">Total Departments</h6>
 						<div class="progress progress-sm">
 							<div class="progress-bar bg-success w-50"></div>
 						</div>

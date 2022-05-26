@@ -7,7 +7,7 @@
 
 @push('page-header')
     <div class="col-sm-7 col-auto">
-        <h3 class="page-title">Deparments</h3>
+        <h3 class="page-title">Deparments List</h3>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active">Deparments</li>
@@ -19,12 +19,14 @@
 @endpush
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="datatable-export" class="table table-hover table-center mb-0">
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table id="category-table" class="datatable table table-striped table-bordered table-hover table-center mb-0">
+
+                        {{-- <table id="datatable-export" class="table table-hover table-center mb-0"> --}}
                             <thead>
                                 <tr style="boder:1px solid black;">
                                     <th>ID</th>

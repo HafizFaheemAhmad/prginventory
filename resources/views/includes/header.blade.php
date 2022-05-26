@@ -28,7 +28,7 @@
 	<ul class="nav user-menu">
 
 		<!-- Notifications -->
-		<li class="nav-item dropdown noti-dropdown">
+		{{-- <li class="nav-item dropdown noti-dropdown">
 			<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 				<i class="fe fe-bell"></i> <span class="badge badge-pill">{{auth()->user()->unReadNotifications->count()}}</span>
 			</a>
@@ -65,7 +65,7 @@
 					<a href="#">View all Notifications</a>
 				</div>
 			</div>
-		</li>
+		</li> --}}
 		<!-- /Notifications -->
 
 		<!-- User Menu -->
@@ -85,12 +85,12 @@
 
 				<a class="dropdown-item" href="{{route('profile')}}">My Profile</a>
 				@can('view-settings')<a class="dropdown-item" href="{{route('settings')}}">Settings</a>@endcan
-				@can('backup-app')
+				{{-- @can('backup-app')
 				<a class="dropdown-item" href="{{route('backup-app')}}">Backup App</a>
 				@endcan
 				@can('backup-db')
 				<a class="dropdown-item" href="{{route('backup-db')}}">Backup Database</a>
-				@endcan
+				@endcan --}}
 				<a class="dropdown-item" href="{{route('logout')}}">Logout</a>
 			</div>
 		</li>
