@@ -19,10 +19,10 @@
 
                 @can('view-categories')
 				<li class="submenu">
-					<a href="#"><i class="fe fe-document"></i> <span> Categiries</span> <span class="menu-arrow"></span></a>
+					<a href="#"><i class="fe fe-document"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
 					<ul style="display: none;">
-						@can('view-categories')<li><a class="{{ Request::routeIs(('categories')) ? 'active' : '' }}" href="{{route('categories')}}">Categories</a></li>@endcan
-						@can('create-category')<li><a class="{{ Request::routeIs('add-category') ? 'active' : '' }}" href="{{route('add-category')}}">Add Category</a></li>@endcan
+						@can('view-categories')<li><a class="{{ Request::routeIs(('categories')) ? 'active' : '' }}" href="{{route('categories')}}">List Departments</a></li>@endcan
+						@can('create-category')<li><a class="{{ Request::routeIs('add-category') ? 'active' : '' }}" href="{{route('add-category')}}">Add Department</a></li>@endcan
 						{{-- @can('view-outstock-products')<li><a class="{{ Request::routeIs('outstock') ? 'active' : '' }}" href="{{route('outstock')}}">Out-Stock</a></li>@endcan
 						@can('view-expired-products')<li><a class="{{ Request::routeIs('expired') ? 'active' : '' }}" href="{{route('expired')}}">Expired</a></li>@endcan --}}
 					</ul>
@@ -33,10 +33,10 @@
 
 				@can('view-products')
 				<li class="submenu">
-					<a href="#"><i class="fe fe-document"></i> <span> Products</span> <span class="menu-arrow"></span></a>
+					<a href="#"><i class="fe fe-document"></i> <span> Cubicals</span> <span class="menu-arrow"></span></a>
 					<ul style="display: none;">
-						@can('view-products')<li><a class="{{ Request::routeIs(('products')) ? 'active' : '' }}" href="{{route('products')}}">Products</a></li>@endcan
-						@can('create-product')<li><a class="{{ Request::routeIs('add-product') ? 'active' : '' }}" href="{{route('add-product')}}">Add Product</a></li>@endcan
+						@can('view-products')<li><a class="{{ Request::routeIs(('products')) ? 'active' : '' }}" href="{{route('products')}}">List Cubicals</a></li>@endcan
+						@can('create-product')<li><a class="{{ Request::routeIs('add-product') ? 'active' : '' }}" href="{{route('add-product')}}">Add Cubicals</a></li>@endcan
 						{{-- @can('view-outstock-products')<li><a class="{{ Request::routeIs('outstock') ? 'active' : '' }}" href="{{route('outstock')}}">Out-Stock</a></li>@endcan
 						@can('view-expired-products')<li><a class="{{ Request::routeIs('expired') ? 'active' : '' }}" href="{{route('expired')}}">Expired</a></li>@endcan --}}
 					</ul>
