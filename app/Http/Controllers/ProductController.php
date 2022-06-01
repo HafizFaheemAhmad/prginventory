@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Purchase;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Notifications\StockAlert;
 use Illuminate\Support\Facades\DB;
@@ -30,9 +31,10 @@ class ProductController extends Controller
         $title= "Add Product";
         $categories = Category::get();
         $products = Product::get();
+        $statuses = Status::get();
 
         return view('add-product',compact(
-            'title','categories','products',
+            'title','categories','products','statuses',
         ));
     }
 
@@ -82,7 +84,7 @@ class ProductController extends Controller
             'Headset_Code'=>'required',
             'CPU_Detail'=>'required',
             'category'=>'required',
-
+            'status'=>'required',
         ]);
 
         $res=Product::create([
@@ -91,6 +93,7 @@ class ProductController extends Controller
             'Headset_Code'=>$request->Headset_Code,
             'CPU_Detail'=>$request->CPU_Detail,
             'category_id'=>$request->category,
+            'status_id'=>$request->status,
 
         ]);
 
@@ -113,9 +116,9 @@ class ProductController extends Controller
         $title = "Edit Product";
         $product = Product::find($id);
         $categories = Category::get();
-
+        $statuses = Status::get();
         return view('edit-product',compact(
-            'title','product','categories'
+            'title','product','categories','statuses'
         ));
     }
 
@@ -135,17 +138,20 @@ class ProductController extends Controller
             'Headset_Code'=>'required',
             'CPU_Detail'=>'required',
             'category'=>'required',
+            'status'=>'required',
 
         ]);
 
 
        $product->update([
-       'Cubical_Number'=>$request->Cubical_Number,
+            'Cubical_Number'=>$request->Cubical_Number,
             'Lcd_Code'=>$request->Lcd_Code,
             'Headset_Code'=>$request->Headset_Code,
             'CPU_Detail'=>$request->CPU_Detail,
             'category_id'=>$request->category,
+            'status_id'=>$request->status,
         ]);
+
         $notification=array(
             'message'=>"Product has been updated",
             'alert-type'=>'success',

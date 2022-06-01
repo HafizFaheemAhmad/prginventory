@@ -32,7 +32,9 @@
                                     <th>ID</th>
                                     <th>Deparments</th>
                                     <th>Cubical Number</th>
+                                    <th>Status</th>
                                     <th>Created Date</th>
+                                    <th>Updated Date</th>
 
                                     <th class="action-btn">Action</th>
                                 </tr>
@@ -47,7 +49,9 @@
                                         </td>
 
                                         <td>{{ $product->Cubical_Number }}</td>
-                                        <td>{{ date_format(date_create($product->created_at), 'd M,Y') }}</td>
+                                        <td>{{ $product->status->name }}</td>
+                                        <td>{{ date('d-M-Y / h:i:s', strtotime($product->created_at)) }}</td>
+                                        <td>{{ date('d-M-Y / h:i:s', strtotime($product->updated_at)) }}</td>
                                         </td>
                                         <h2 class="table-avatar">
                                             <td>

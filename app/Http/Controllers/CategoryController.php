@@ -102,4 +102,15 @@ class CategoryController extends Controller
             'products' => Product::where('category_id', $category->id)->paginate(25)
         ]);
     }
+
+    public function create(){
+        $title= "Add Category";
+        $categories = Category::get();
+        $products = Product::get();
+
+        return view('add-category',compact(
+            'title','categories','products',
+        ));
+    }
+
 }

@@ -13,9 +13,9 @@
             <li class="breadcrumb-item active">Deparments</li>
         </ul>
     </div>
-    <div class="col-sm-5 col">
+    {{-- <div class="col-sm-5 col">
         <a href="#add_categories" data-toggle="modal" class="btn btn-primary float-right mt-2">Add Department</a>
-    </div>
+    </div> --}}
 @endpush
 
 @section('content')
@@ -24,15 +24,14 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
-					<table id="category-table" class="datatable table table-striped table-bordered table-hover table-center mb-0">
-
-                        {{-- <table id="datatable-export" class="table table-hover table-center mb-0"> --}}
+					<table id="datatable-export" class="table table-hover table-center mb-0">
                             <thead>
                                 <tr style="boder:1px solid black;">
                                     <th>ID</th>
                                     <th>Department Name</th>
                                     <th>Created date</th>
-                                    <th class="text-center action-btn">Actions</th>
+                                    <th>Update date</th>
+                                    {{-- <th class="text-center action-btn">Actions</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,9 +42,11 @@
                                             <td><a href="{{ route('categories-show', $category) }}">{{ $category->name }}</a>
                                             </td>
                                         </h2>
-                                        <td>{{ date_format(date_create($category->created_at), 'd M,Y') }}</td>
+                                        <td>{{ date('d-M-Y / h:i:s', strtotime($category->created_at)) }}</td>
+                                        {{-- {!! date('d/M/y', strtotime($data->created_at)) !!} --}}
+                                        <td>{{ date('d-M-Y / h:i:s', strtotime($category->updated_at)) }}</td>
 
-                                        <td class="text-center">
+                                        {{-- <td class="text-center">
                                             <div class="actions">
                                                 <a data-id="{{$category->id}}" data-name="{{$category->name}}" class="btn btn-sm bg-success-light editbtn " data-toggle="modal" href="javascript:void(0)">
                                                     <i class="fe fe-pencil"></i> Edit
@@ -54,7 +55,7 @@
                                                     <i class="fe fe-trash"></i> Delete
                                                 </a>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 
@@ -67,7 +68,7 @@
         </div>
     </div>
 
-    <!-- Add Modal -->
+    {{-- <!-- Add Modal -->
     <div class="modal fade" id="add_categories" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -94,10 +95,10 @@
             </div>
         </div>
     </div>
-    <!-- /ADD Modal -->
+    <!-- /ADD Modal --> --}}
 
     <!-- Edit Details Modal -->
-    <div class="modal fade" id="edit_category" aria-hidden="true" role="dialog">
+    {{-- <div class="modal fade" id="edit_category" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -129,7 +130,7 @@
     <!-- /Edit Details Modal -->
 
     <!-- Delete Modal -->
-    <x-modals.delete :route="'categories'" :title="'Category'" />
+    <x-modals.delete :route="'categories'" :title="'Category'" /> --}}
     <!-- /Delete Modal -->
 @endsection
 

@@ -37,6 +37,16 @@
                                     @endforeach
                                 </select>
                             </div>
+
+
+                            <div class="form-group">
+                                <label>Status <span class="text-danger">*</span></label>
+                                <select class="select2 form-select form-control" name="status">
+                                    @foreach ($statuses as $status)
+                                        <option value="{{$status->id}}">{{$status->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 					</div>
 				</div>

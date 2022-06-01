@@ -48,6 +48,7 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('logout',[LogoutController::class,'index'])->name('logout');
 
     Route::get('categories',[CategoryController::class,'index'])->name('categories');
+    Route::get('categories/create',[CategoryController::class,'create'])->name('add-category');
     Route::get('categoriesshow/{category}',[CategoryController::class,'shows'])->name('categories-show');
     Route::post('categories',[CategoryController::class,'store']);
     Route::put('categories',[CategoryController::class,'update']);
