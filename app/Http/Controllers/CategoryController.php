@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,11 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $title = "categories";
+
         $categories = Category::get();
-        return view('categories',compact(
-            'title','categories',
-        ));
+        $products = Product::get();
+
+        return view('categories', compact('categories', 'products'));
     }
 
     /**
@@ -29,13 +30,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'required|max:100',
+        $this->validate($request, [
+            'name' => 'required|max:100',
         ]);
         Category::create($request->all());
-        $notification=array(
-            'message'=>"Category has been added",
-            'alert-type'=>'success',
+        $notification = array(
+            'message' => "Category has been added",
+            'alert-type' => 'success',
         );
         return back()->with($notification);
     }
@@ -48,7 +49,12 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $title = "Edit Category";
+        $categories = Category::find($id);
+
+        return view('categories',compact(
+            'categories'
+        ));
     }
 
     /**
@@ -60,14 +66,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
-        $this->validate($request,['name'=>'required|max:100']);
+        $this->validate($request, ['name' => 'required|max:100']);
         $category = Category::find($request->id);
         $category->update([
-            'name'=>$request->name,
+            'name' => $request->name,
         ]);
-        $notification=array(
-            'message'=>"Category has been updated",
-            'alert-type'=>'success',
+        $notification = array(
+            'message' => "Category has been updated",
+            'alert-type' => 'success',
         );
         return back()->with($notification);
     }
@@ -82,10 +88,29 @@ class CategoryController extends Controller
     {
         $category = Category::find($request->id);
         $category->delete();
-        $notification=array(
-            'message'=>"Category has been deleted",
-            'alert-type'=>'success',
+        $notification = array(
+            'message' => "Category has been deleted",
+            'alert-type' => 'success',
         );
         return back()->with($notification);
     }
+
+    public function shows(Category $category)
+    {
+        return view('categories-show', [
+            'category' => $category,
+            'products' => Product::where('category_id', $category->id)->paginate(25)
+        ]);
+    }
+
+    public function create(){
+        $title= "Add Category";
+        $categories = Category::get();
+        $products = Product::get();
+
+        return view('add-category',compact(
+            'title','categories','products',
+        ));
+    }
+
 }

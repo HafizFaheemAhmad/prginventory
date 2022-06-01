@@ -1,34 +1,34 @@
 <!-- Header -->
 <div class="header">
-			
+
 	<!-- Logo -->
 	<div class="header-left">
 		<a href="{{route('dashboard')}}" class="logo">
-			<img src="@if(!empty(AppSettings::get('logo'))) {{asset('storage/'.AppSettings::get('logo'))}} @else{{asset('assets/img/logo.png')}} @endif" alt="Logo">
+			<img src="@if(!empty(AppSettings::get('logo'))) {{asset('storage/'.AppSettings::get('logo'))}} @else{{asset('assets/img/PRGNEO.jpg')}} @endif" alt="Logo">
 		</a>
 		<a href="{{route('dashboard')}}" class="logo logo-small">
-			<img src="{{asset('assets/img/logo-small.png')}}" alt="Logo" width="30" height="30">
+			<img src="{{asset('assets/img/PRGNEO.jpg')}}" alt="Logo" width="30" height="30">
 		</a>
 	</div>
 	<!-- /Logo -->
-	
+
 	<a href="javascript:void(0);" id="toggle_btn">
 		<i class="fe fe-text-align-left"></i>
 	</a>
-	
-	
-	
+
+
+
 	<!-- Mobile Menu Toggle -->
 	<a class="mobile_btn" id="mobile_btn">
 		<i class="fa fa-bars"></i>
 	</a>
 	<!-- /Mobile Menu Toggle -->
-	
+
 	<!-- Header Right Menu -->
 	<ul class="nav user-menu">
 
 		<!-- Notifications -->
-		<li class="nav-item dropdown noti-dropdown">
+		{{-- <li class="nav-item dropdown noti-dropdown">
 			<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 				<i class="fe fe-bell"></i> <span class="badge badge-pill">{{auth()->user()->unReadNotifications->count()}}</span>
 			</a>
@@ -52,22 +52,22 @@
 												<span class="noti-title">{{$notification->data['product_name']}} is only {{$notification->data['quantity']}} left.</span>
 												<span>Please update the purchase quantity </span>
 											</p>
-											
+
 											<p class="noti-time"><span class="notification-time">{{$notification->created_at->diffForHumans()}}</span></p>
 										</div>
 									</div>
 								</a>
 							</li>
-						@endforeach						
+						@endforeach
 					</ul>
 				</div>
 				<div class="topnav-dropdown-footer">
 					<a href="#">View all Notifications</a>
 				</div>
 			</div>
-		</li>
+		</li> --}}
 		<!-- /Notifications -->
-		
+
 		<!-- User Menu -->
 		<li class="nav-item dropdown has-arrow">
 			<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -82,22 +82,22 @@
 						<h6>{{auth()->user()->name}}</h6>
 					</div>
 				</div>
-				
+
 				<a class="dropdown-item" href="{{route('profile')}}">My Profile</a>
 				@can('view-settings')<a class="dropdown-item" href="{{route('settings')}}">Settings</a>@endcan
-				@can('backup-app')
+				{{-- @can('backup-app')
 				<a class="dropdown-item" href="{{route('backup-app')}}">Backup App</a>
 				@endcan
 				@can('backup-db')
 				<a class="dropdown-item" href="{{route('backup-db')}}">Backup Database</a>
-				@endcan
+				@endcan --}}
 				<a class="dropdown-item" href="{{route('logout')}}">Logout</a>
 			</div>
 		</li>
 		<!-- /User Menu -->
-		
+
 	</ul>
 	<!-- /Header Right Menu -->
-	
+
 </div>
 <!-- /Header -->

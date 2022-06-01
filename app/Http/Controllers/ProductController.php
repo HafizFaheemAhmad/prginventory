@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Purchase;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use App\Notifications\StockAlert;
 use Illuminate\Support\Facades\DB;
@@ -22,21 +23,21 @@ class ProductController extends Controller
     public function index()
     {
         $title = "products";
-        $products = Product::with('purchase')->get();
-    
-        return view('products',compact(
-            'title','products',
-        ));
+        $products = Product::paginate(25);
+        return view('products',compact('products'));
     }
 
     public function create(){
         $title= "Add Product";
-        $products = Purchase::get();
+        $categories = Category::get();
+        $products = Product::get();
+        $statuses = Status::get();
+
         return view('add-product',compact(
-            'title','products',
+            'title','categories','products','statuses',
         ));
     }
-    
+
 
     /**
      * Display a listing of expired resources.
@@ -45,8 +46,8 @@ class ProductController extends Controller
      */
     public function expired(){
         $title = "expired Products";
-        $products = Purchase::whereDate('expiry_date', '=', Carbon::now())->get();
-        
+        $products = Category::whereDate('expiry_date', '=', Carbon::now())->get();
+
         return view('expired',compact(
             'title','products'
         ));
@@ -59,15 +60,15 @@ class ProductController extends Controller
      */
     public function outstock(){
         $title = "outstocked Products";
-        $products = Purchase::where('quantity', '<=', 0)->get();
-        $product = Purchase::where('quantity', '<=', 0)->first();
+        $products = Category::where('quantity', '<=', 0)->get();
+        $product = Category::where('quantity', '<=', 0)->first();
         // auth()->user()->notify(new StockAlert($product));
-        
+
         return view('outstock',compact(
             'title','products',
         ));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -78,21 +79,24 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'product'=>'required|max:200',
-            'price'=>'required|min:1',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:200',
+            'Cubical_Number'=>'required',
+            'Lcd_Code'=>'required',
+            'Headset_Code'=>'required',
+            'CPU_Detail'=>'required',
+            'category'=>'required',
+            'status'=>'required',
         ]);
-        $price = $request->price;
-        if($request->discount >0){
-           $price = $request->discount * $request->price;
-        }
-        Product::create([
-            'purchase_id'=>$request->product,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'description'=>$request->description,
+
+        $res=Product::create([
+            'Cubical_Number'=>$request->Cubical_Number,
+            'Lcd_Code'=>$request->Lcd_Code,
+            'Headset_Code'=>$request->Headset_Code,
+            'CPU_Detail'=>$request->CPU_Detail,
+            'category_id'=>$request->category,
+            'status_id'=>$request->status,
+
         ]);
+
         $notification=array(
             'message'=>"Product has been added",
             'alert-type'=>'success',
@@ -111,9 +115,10 @@ class ProductController extends Controller
     {
         $title = "Edit Product";
         $product = Product::find($id);
-        $purchased_products = Purchase::get();
+        $categories = Category::get();
+        $statuses = Status::get();
         return view('edit-product',compact(
-            'title','product','purchased_products'
+            'title','product','categories','statuses'
         ));
     }
 
@@ -126,29 +131,46 @@ class ProductController extends Controller
      */
     public function update(Request $request,Product $product)
     {
+
         $this->validate($request,[
-            'product'=>'required|max:200',
-            'price'=>'required',
-            'discount'=>'nullable',
-            'description'=>'nullable|max:200',
+            'Cubical_Number'=>'required',
+            'Lcd_Code'=>'required',
+            'Headset_Code'=>'required',
+            'CPU_Detail'=>'required',
+            'category'=>'required',
+            'status'=>'required',
+
         ]);
-        
-        $price = $request->price;
-        if($request->discount >0){
-           $price = $request->discount * $request->price;
-        }
+
+
        $product->update([
-            'purchase_id'=>$request->product,
-            'price'=>$price,
-            'discount'=>$request->discount,
-            'description'=>$request->description,
+            'Cubical_Number'=>$request->Cubical_Number,
+            'Lcd_Code'=>$request->Lcd_Code,
+            'Headset_Code'=>$request->Headset_Code,
+            'CPU_Detail'=>$request->CPU_Detail,
+            'category_id'=>$request->category,
+            'status_id'=>$request->status,
         ]);
+
         $notification=array(
             'message'=>"Product has been updated",
             'alert-type'=>'success',
         );
         return redirect()->route('products')->with($notification);
     }
+    // public function update(Request $request)
+    // {
+    //     $this->validate($request,['name'=>'required|max:100']);
+    //     $category = Category::find($request->id);
+    //     $category->update([
+    //         'name'=>$request->name,
+    //     ]);
+    //     $notification=array(
+    //         'message'=>"Category has been updated",
+    //         'alert-type'=>'success',
+    //     );
+    //     return back()->with($notification);
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -165,5 +187,13 @@ class ProductController extends Controller
             'alert-type'=>'success',
         );
         return back()->with($notification);
+    }
+
+    public function shows(Product $product)
+    {
+        return view('product-show', [
+            'product' => $product,
+            'products' => Product::where('id', $product->id)->paginate(25)
+        ]);
     }
 }

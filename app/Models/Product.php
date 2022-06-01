@@ -13,10 +13,19 @@ class Product extends Model
 {
     use HasFactory,SoftDeletes,Notifiable;
 
-    protected $fillable = [
-
-        'description',
+    protected $fillable =[
+       'name', 'Cubical_Number','Lcd_Code','Headset_Code','CPU_Detail','category_id','status_id'
     ];
+
+
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id');
+    }
+
+
+    public function status(){
+        return $this->belongsTo(Status::class,'status_id');
+    }
 
 
 }
